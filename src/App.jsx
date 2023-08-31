@@ -13,16 +13,19 @@ function App() {
   let handleCalculate = () => {
     try {
       setCalculate(eval(value))
+    
     } catch (error) {
       if(calculate){
-        setCalculate("")
-        setTimeout(() => {
-          setCalculate("Syntax Erore.....")
-        }, 1000);
+        setValue('')
       }
-
+      setTimeout(() => {
+        setCalculate('Syntax Erore.... ')
+        
+      }, 1000);
+      
     }
-    setValue("")
+    setValue('')
+   
   }
   let handleClear = () => {
     if (value) {

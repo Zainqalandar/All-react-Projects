@@ -16,7 +16,7 @@ function App() {
     
     } catch (error) {
       if(calculate){
-        setValue('')
+        setCalculate('')
       }
       setTimeout(() => {
         setCalculate('Syntax Erore.... ')

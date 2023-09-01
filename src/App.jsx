@@ -1,9 +1,11 @@
-import './App.css'
+import { useS} from 'react'
+
 function App() {
+  
   return (
-    <>
-     <h1 className='border border-black text-center text-lg bg-yellow-600'>Hello World</h1>
-    </>
+    
+    <>h</>
+    
   )
 }
 

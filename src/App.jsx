@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 function App() {
   console.log('app')
@@ -6,6 +6,9 @@ function App() {
   const [numberAlow, setNumberAlow] = useState(false)
   const [operaterAlow, setOperaterAlow] = useState(false)
   const [password, setPassword] = useState("t")
+
+  const Myref = useRef(null)
+
    let PasswordGerator = useCallback(
     () => {
       console.log('callback')
@@ -30,6 +33,7 @@ function App() {
   useEffect(() => {
     console.log('hlo')
     PasswordGerator()
+    Myref.current.focus()
   
   }, [length,numberAlow, operaterAlow])
 
@@ -39,16 +43,25 @@ function App() {
       <div className='bg-black h-screen text-white'>
         <p className='text-2xl text-center'>Hello World</p>
         <div className='border border-white w-1/3 mx-auto bg-orange-700 text-center p-5 m-8'>
-          <input value={password} placeholder="Passoword.." readOnly className='text-black rounded-l-lg w-60' type="text" name="" id="" />
+          <input ref={Myref} value={password} placeholder="Passoword.." readOnly className='text-black rounded-l-lg w-60' type="text" name="" id="" />
           <button className='border border-black bg-red-600 rounded-r-lg'>Copy</button>
           <div className='text-black space-x-2 m-4'>
-            <input type="range" value={length} name="" onChange={(e) => setLength(e.target.value)} /><span className="text-xl text-green-800">{length}</span>
+            <input type="range"
+             value={length} name=""
+             onChange={(e) => setLength(e.target.value)}
+             /><span className="text-xl
+             text-green-800">{length}</span>
 
             <label htmlFor="f">Number</label>
-            <input defaultChecked={numberAlow} onChange={()=>setNumberAlow((Prev)=> !Prev)} type="checkbox" name="" id="f" />
+            <input defaultChecked={numberAlow}
+             onChange={()=>setNumberAlow((Prev)=> !Prev)}
+             type="checkbox"
+             id="f" />
 
             <label htmlFor="l">Chracter</label>
-            <input type="checkbox" onChange={()=>setOperaterAlow((Prev)=>!Prev)} name="" id="l" />
+            <input type="checkbox"
+             onChange={()=>setOperaterAlow((Prev)=>!Prev)}
+             name="" id="l" />
           </div>
         </div>
       </div>

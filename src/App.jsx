@@ -7,7 +7,7 @@ function App() {
   const [operaterAlow, setOperaterAlow] = useState(false)
   const [password, setPassword] = useState("t")
 
-  const Myref = useRef(null)
+  const Passwordref = useRef(null)
 
    let PasswordGerator = useCallback(
     () => {
@@ -29,11 +29,17 @@ function App() {
     },
     [length,numberAlow,operaterAlow],
   )
+  let passwordRefFuc= useCallback(
+    () => {
+      console.log('passwordReffFuc')
+      Passwordref.current.select()
+      window.navigator.clipboard.writeText(password)
+    },
+    [password],
+  )
   
   useEffect(() => {
-    console.log('hlo')
     PasswordGerator()
-    Myref.current.focus()
   
   }, [length,numberAlow, operaterAlow])
 
@@ -43,8 +49,8 @@ function App() {
       <div className='bg-black h-screen text-white'>
         <p className='text-2xl text-center'>Hello World</p>
         <div className='border border-white w-1/3 mx-auto bg-orange-700 text-center p-5 m-8'>
-          <input ref={Myref} value={password} placeholder="Passoword.." readOnly className='text-black rounded-l-lg w-60' type="text" name="" id="" />
-          <button className='border border-black bg-red-600 rounded-r-lg'>Copy</button>
+          <input ref={Passwordref} value={password} placeholder="Passoword.." readOnly className='text-black rounded-l-lg w-60' type="text" name="" id="" />
+          <button className='border border-black bg-red-600 rounded-r-lg' onClick={()=>passwordRefFuc()}>Copy</button>
           <div className='text-black space-x-2 m-4'>
             <input type="range"
              value={length} name=""
@@ -70,3 +76,9 @@ function App() {
   )
 }
 export default App
+
+// const copyPasswordToClipboard = useCallback(() => {
+//   passwordRef.current?.select();
+//   passwordRef.current?.setSelectionRange(0, 999);
+//   window.navigator.clipboard.writeText(password)
+// }, [password])

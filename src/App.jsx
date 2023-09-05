@@ -1,59 +1,48 @@
-import { useState } from 'react'
-import { getDatabase,ref,push,set } from "firebase/database";
+import { useEffect, useState } from 'react'
+import { getDatabase, ref, push, set, onChildAdded } from "firebase/database";
 import './App.css'
 function App() {
-  const [state, setState] = useState({
-    Name: "",
-    Message: ""
-  })
-  const [chat, setChat] = useState([{ Name: "zain", Message: 'Hi! I am zain hare....' },
-  { Name: "suhan", Message: 'Hi! I am subhan hare....' }, { Name: "me", Message: 'Walikum.....' }])
-
+  console.log('app')
+  const [name, setName] = useState('Qalandar')
+  const [chat, setChat] = useState([{ Name: "zain", Message: 'Hi! I am zain haree....' }, { Name: "suhan", Message: 'Hi! I am subhan hare....' }])
+  const [mess, setMess] = useState('')
   const db = getDatabase();
+  const ChatListRef = ref(db, 'CHAT');
+  
+  useEffect(() => {
+    onChildAdded(ChatListRef, (data) => {
+      setChat((chat) => [...chat, data.val()]);
+    });
 
-  let handleSand = () => {
-    console.log(state)
-    const chatListRef = ref(db, 'chat');
-    const chatRef = push(chatListRef);
-    set(chatRef, {
-      ...state
+  }, [])
+
+  let SendChat = () => {
+    const ChatRef = push(ChatListRef);
+    set(ChatRef, {
+      Name: name, Message: mess
       // ...
     });
-    setChat([...chat,
-      state
-    ])
-
-  }
-
-  let handleChange = (e) => {
-    setState(
-      {
-        ...state,
-        // Name: 'me',
-        Name: 'me',
-        [e.target.name]: e.target.value
-      }
-    )
 
 
   }
+
   return (
     <>
       <div className='text-black w-screen h-screen bg-slate-400 relative'>
+        <h1 className='text-4xl'>Name: {name}</h1>
         <label htmlFor="l">Name:</label>
-        <input type="text" onChange={handleChange} name="Name" id="l" />
+        <input type="text" onBlur={e => setName(e.target.value)} name="Name" id="l" />
         {
-          chat.map(value => <div className={`border border-black flex ${value.Name == 'me' ? 'flex-row-reverse text-red-800' : " "}`}>
-            <p className='border border-red-700 rounded p-3 max-w-xs  bg-blue-600 m-2'><strong>Name:{value.Name}</strong>
+          chat.map((value, i) => <div key={i} className={`border border-black flex ${value.Name == 'me' ? 'flex-row-reverse text-red-800' : " "}`}>
+            <p className='border border-red-700 rounded p-3 max-w-xs  bg-blue-600 m-2'><strong>{value.Name}</strong>
               {value.Message}
             </p>
-
           </div>)
         }
         <div className='bottom-0 absolute'>
           <label htmlFor="f">Message: </label>
-          <input onChange={handleChange} type="text" name="Message" id="f" />
-          <button onClick={handleSand}>sand</button>
+          <input onInput={e => setMess(e.target.value)} type="text" value={mess} name="Message" id="f" />
+          <button onClick={e => SendChat()}>sand</button>
         </div>
       </div>
 

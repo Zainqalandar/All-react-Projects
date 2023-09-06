@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react'
 import './App.css'
 import { getDatabase, ref, push, set, onChildAdded } from "firebase/database";
@@ -21,7 +20,7 @@ function App() {
   }
   document.getElementsByTagName('body')[0].style.background = 'RGB(33, 92, 84)'
   useEffect(() => {
-
+    
     onChildAdded(chatListRef, (data) => {
       setChats(chats => [...chats, data.val()])
       setTimeout(() => {
@@ -34,23 +33,27 @@ function App() {
 
   let sandMeg = () => {
     set(chatRef, {
-      Name: name, Message: meg
+      Name: name,
+      Message: meg
     });
     setMeg('')
 
   }
   return (
     <>
-      {name ? null : <div>
-        <input className='border' type="text" name="" id="" onBlur={(e) => setName(e.target.value)} />
+      {name ? null : <div className='text-center'>
+        <input placeholder='Enter your Name....' className='border p-3  w-1/3 rounded-2xl ' type="text" name="" id="" onBlur={(e) => setName(e.target.value)} />
       </div>}
       {name ? <div >
+        {
+
+        }
         <div id='scoll' className='chat-container h-[89vh] overflow-y-scroll'>
           <h1 className='text-4xl text-center'>Name: {name}</h1>
           {
             chats.map((c, i) => <div key={i} className={`container  flex ${c.Name == name ? 'flex-row-reverse ' : ''}`} >
               <p className={`chatbox border-2  border-gray-400 ${c.Name == name ? 'bg-green-400 rounded-l-full rounded-tr-full ' : " ml-7 bg-white rounded-r-full rounded-tl-full"} p-4 my-2  bg-bisque`}>
-                <i className='text-red-400 text-sm'>{c.Name !== name && '+92174433473'}{c.Name !== name && <i className=' text-slate-400'>~Asad</i>}</i><br />
+                {c.Name !== name && <i><i className='text-red-400 text-sm'>{c.Name !== name && '+92174433473'}{c.Name !== name && <i className=' text-slate-400 ml-1'>~{c.Name}</i>}</i><br /></i>}
                 <strong>{c.Name} </strong>
                 {c.Message}
               </p>
@@ -65,7 +68,7 @@ function App() {
         </div>
       </div> : null}
     </>
-    
+
   )
 }
 

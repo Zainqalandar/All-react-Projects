@@ -3,12 +3,12 @@ import React from 'react'
 export const InputBox = ({ 
     label,
     onAmountChange,
-    onCurrencyChange,
     selectCurrency,
+
     currencyOption = [],
     amount
  }) => {
-    console.log(selectCurrency)
+    console.log(currencyOption)
     return (
         <>
             <div className='flex justify-center border-2 border-red-800 bg-green-500 my-3'>
@@ -22,8 +22,6 @@ export const InputBox = ({
                 <div className='border-2 border-red-800 flex flex-col'>
                     <p>Currency Type</p>
                     <select name=""
-                    value={selectCurrency}
-                    onChange={(e)=> onCurrencyChange && onCurrencyChange(e.target.value)}
                      id="">
                         {
                             currencyOption.map(currency=><option key={currency} value={currency}>

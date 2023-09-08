@@ -11,7 +11,7 @@ export default function InputBox({
     console.log(amout)
     return (
         <>
-            <div className='flex justify-center border-2 border-green-800'>
+            <div className='flex justify-center border-2 border-green-800 ml-2'>
                 <div className=' border border-red-700 rounded-l-lg bg-yellow-500 p-2'>
                     <label htmlFor="">{label}</label><br />
                     <input 

@@ -1,8 +1,12 @@
+import { useContext } from 'react'
 import './App.css'
+import Login from './Components/Login'
+import Profile from './Components/Profile'
 function App() {
   return (
     <>
-     <h1 className='border border-black text-center text-lg bg-yellow-600'>Hello World</h1>
+      <Login />
+      <Profile />
     </>
   )
 }

@@ -37,9 +37,13 @@ function App() {
     }
   }
   const UseRef = useRef(null)
-  if(UseRef.current){
-    UseRef.current.focus()
-  }
+  useEffect(() => {
+    if (UseRef.current) {
+      UseRef.current.focus()
+    }
+
+  }, [email])
+
   useEffect(() => {
 
     onChildAdded(chatListRef, (data) => {
@@ -70,7 +74,23 @@ function App() {
     <>
       {/* Google Login Button */}
       {email ? null : (
-        <button onClick={() => GoogleLogin()}>Google Login</button>
+        <div className=' border border-black  mx-auto text-center'>
+          <p className="text-4xl font-extrabold text-gray-900 dark:text-white text-center  my-2">Welcome to Chat</p>
+          <div className=' w-1/3 mx-auto m-12'>
+            <a className="mb-3 flex w-full items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]" style={{ backgroundColor: '#3b5998' }} href="#!" role="button" data-te-ripple-init data-te-ripple-color="light">
+              {/* Facebook */}
+              <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+              </svg>
+              Continue with Facebook
+            </a>
+            <button onClick={() => GoogleLogin()} className=" text-black mb-3 flex w-full items-center justify-center rounded bg-info px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal shadow-[0_4px_9px_-4px_#54b4d3] transition duration-150 ease-in-out hover:bg-info-600 hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:bg-info-600 focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] focus:outline-none focus:ring-0 active:bg-info-700 active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.3),0_4px_18px_0_rgba(84,180,211,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(84,180,211,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(84,180,211,0.2),0_4px_18px_0_rgba(84,180,211,0.1)]" style={{ backgroundColor: 'white' }} href="#!" role="button" data-te-ripple-init data-te-ripple-color="light">
+              {/* Twitter */}
+              <img src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png" className='  w-5 mr-3' alt="" />
+              Continue with google
+            </button>
+          </div>
+        </div>
       )}
 
       {/* Main Chat Container */}
